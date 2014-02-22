@@ -66,6 +66,7 @@
 (defvar centi-keys-alist nil
   "Assigned keys.  Key currently being assigned to is the first.")
 
+;;;###autoload
 (defun centi-assign ()
   "Read a KEY and start recording a macro for it.
 Pressing KEY again stops recording and assigns the macro to KEY.
