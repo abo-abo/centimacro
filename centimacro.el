@@ -1,4 +1,4 @@
-;;; centimacro.el --- Assign multiple macros as global key bindings.
+;;; centimacro.el --- Assign multiple macros as global key bindings
 
 ;; Copyright (C) 2014 Oleh Krehel
 
