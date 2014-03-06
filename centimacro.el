@@ -123,6 +123,36 @@ Use `centi-restore-all' to un-bind macros and restore the old key bindings."
         "\n")
      "no macros bound currently")))
 
+(defun centi--macro->defun (str)
+  "Convert macro representation STR to an Elisp string."
+  (let ((i 0)
+        (j 1)
+        (n (length str))
+        forms s f)
+    (while (< i n)
+      (setq s (substring str i j))
+      (setq f (key-binding s))
+      (if (keymapp f)
+          (incf j)
+        (push (list f) forms)
+        (setq i j)
+        (setq j (1+ i))))
+    (with-temp-buffer
+      (emacs-lisp-mode)
+      (insert
+       "(defun foo ()\n  (interactive)")
+      (mapc (lambda (f)
+              (newline-and-indent)
+              (insert (prin1-to-string f)))
+            (nreverse forms))
+      (insert ")")
+      (buffer-string))))
+
+(defun centi-insert-last-as-defun ()
+  "Insert last macro as defun at point."
+  (interactive)
+  (insert (centi--macro->defun last-kbd-macro)))
+
 (provide 'centimacro)
 
 ;;; centimacro.el ends here
