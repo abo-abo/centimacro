@@ -60,7 +60,8 @@
 (defcustom centi-assign-key [f5]
   "The global key binding that calls `centi-assign'."
   :set (lambda (symbol value)
-         (global-set-key value 'centi-assign)
+         (when value
+           (global-set-key value 'centi-assign))
          (set-default symbol value)))
 
 (defvar centi-keys-alist nil
