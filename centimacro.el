@@ -107,7 +107,7 @@ Use `centi-restore-all' to un-bind macros and restore the old key bindings."
   (interactive)
   (mapc (lambda(x) (global-set-key (car x) (cdr x)))
         centi-keys-alist)
-  (setq centi-keys-alist))
+  (setq centi-keys-alist nil))
 
 (defun centi-summary ()
   "Show a summary of bound macros."
@@ -133,7 +133,7 @@ Use `centi-restore-all' to un-bind macros and restore the old key bindings."
       (setq s (substring str i j))
       (setq f (key-binding s))
       (if (keymapp f)
-          (incf j)
+          (setq j (1+ j))
         (push (list f) forms)
         (setq i j)
         (setq j (1+ i))))
